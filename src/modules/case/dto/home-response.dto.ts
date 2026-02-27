@@ -6,7 +6,6 @@ export class HomeStatsDto {
   totalDonations: number;
   totalBeneficiaries: number;
 }
-q
 export class HomeResponseDto {
   topStories: CaseResponseDto[]; // أعلى 4 قصص حسب المبلغ المجموع
   topAppeals: CaseResponseDto[]; // أعلى 4 مناشدات حسب المبلغ المجموع
