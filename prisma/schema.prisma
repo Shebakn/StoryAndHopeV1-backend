@@ -214,21 +214,27 @@ model CaseCategory {
 //////////////////////////////////////////////////////
 
 model CaseMedia {
-  id           String   @id @default(uuid())
-  caseId       String
-  case         Case     @relation(fields: [caseId], references: [id], onDelete: Cascade)
-  publicId     String?  // معرف الملف في التخزين السحابي
-  url          String   // رابط الملف
-  type         MediaType
-  format       String?  // png, jpg, mp4, etc.
-  bytes        Int?     // حجم الملف بالبايت
-  order        Int      @default(0) // ترتيب العرض
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  
+  id     String @id @default(uuid())
+  caseId String
+
+  // العلاقة الرئيسية مع Case
+  case Case @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  // علاقة "الصورة الغلافية" العكسية من Case
+  caseCover Case? @relation("CaseCover") 
+
+  publicId  String? // معرف الملف في التخزين السحابي
+  url       String  // رابط الملف
+  type      MediaType
+  format    String? // png, jpg, mp4, etc.
+  bytes     Int?    // حجم الملف بالبايت
+  order     Int     @default(0) // ترتيب العرض
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   // العلاقة مع المستخدم (اختياري)
   uploadedById String?
-  uploadedBy   User?    @relation("UserMedia", fields: [uploadedById], references: [id])
+  uploadedBy   User? @relation("UserMedia", fields: [uploadedById], references: [id])
 
   @@unique([caseId, order])
   @@index([caseId])
