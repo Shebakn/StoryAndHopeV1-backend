@@ -230,7 +230,7 @@ model CaseMedia {
   bytes     Int? // حجم الملف بالبايت
   order     Int       @default(0) // ترتيب العرض
   createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 
   // العلاقة مع المستخدم (اختياري)
   uploadedById String?
